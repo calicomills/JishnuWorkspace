@@ -7,6 +7,6 @@ func main() {
 	fmt.Println(card)
 }
 func newCard() string {
-	return "5 of diamonds"
+	return "6 of diamonds"
 
 }
