@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>UPDATE INMEM DB</title>
+</head>
+<body>
+    <h1>Post JSON Data</h1>
+    <form id="json-form">
+        <label for="key">Key:</label>
+        <input type="text" id="key" name="key" required><br><br>
+
+        <label for="value">Value:</label>
+        <input type="text" id="value" name="value" required><br><br>
+
+        <label for="persist">Persist:</label>
+        <input type="checkbox" id="persist" name="persist"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById("json-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const key = document.getElementById("key").value;
+            const value = document.getElementById("value").value;
+            const persist = document.getElementById("persist").checked;
+            window.location = "/input";
+
+            const data = {
+                key: key,
+                value: value,
+                persist: persist
+            };
+
+            fetch("http://127.0.0.1:5000/send", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Data sent successfully.");
+                } else {
+                    console.error("Error sending data.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+            var successFunction = function (data) {
+             // do something
+                window.location = data;
+                };
+        });
+    </script>
+</body>
+</html>
